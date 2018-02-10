@@ -1,5 +1,26 @@
 from textstat.textstat import textstat
 import language_check
+import nltk
+
+
+def count_partsofspeech(article_contents: str) -> dict:
+    """
+    Returns the number of adjectives in a given string.
+
+    @param article_contents, a string containing a news article
+    @return pos_dict, which contains the parts of speech breakdown of an article
+    """
+    pos_dict = {}
+    text = nltk.word_tokenize(article_contents)
+
+    for word in nltk.pos_tag(text):
+        if word[1] in pos_dict:
+            pos_dict[word[1]] += 1
+
+        else:
+            pos_dict[word[1]] = 1
+
+    return pos_dict
 
 
 def get_text_characteristics(article_contents: str) -> dict:
