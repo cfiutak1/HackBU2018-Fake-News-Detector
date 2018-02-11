@@ -55,7 +55,6 @@ def whois_value(url: str) -> dict:
     whois_values_dict = {
         "location_value": 0,
         "age_value": 0,
-        "privacy_value": 0,
     }
 
 #     Assigns an int to the location_value key depending on the history of fake news dissemination from a given country
@@ -73,6 +72,6 @@ def whois_value(url: str) -> dict:
 
 #     Assigns an int to the privacy_value key by checking if a privacy guard service was used
     if "PRIVACY" in whois_data["name"].upper():
-        whois_values_dict["privacy_value"] = 1
+        whois_values_dict["location_value"] = 0.65
 
     return whois_values_dict
