@@ -24,7 +24,7 @@ def days_since_creation(date_str: str) -> int:
 
     return diff_days.days
 
-
+# TODO - Make this breakproof since some of these keys might not exist
 def get_whois_data(url: str) -> dict:
     """
     @param url, a string containing the URL for an article to be checked
@@ -42,7 +42,7 @@ def get_whois_data(url: str) -> dict:
     return refined_whois_dict
 
 
-def whois_value(url: str) -> dict:
+def get_whois_features(url: str) -> dict:
     """
     Returns a dictionary containing values for different WHOIS factors that our algorithm will use. The location of
     the website's registration (e.g. Macedonia), the age of the site, and whether it was registered using a WHOIS guard
