@@ -2,14 +2,15 @@ import pandas as pd
 import tensorflow as tf
 import json
 
-TRAIN_URL = "file://Users/gppst/AppData/Local/Programs/Python/Python36/HackBU2018-Fake-News-Detector/fakenews_training.json"
-TEST_URL = "file://Users/gppst/AppData/Local/Programs/Python/Python36/HackBU2018-Fake-News-Detector/fakenews_testing.json"
+TRAIN_URL = "file:///c:/Users/gppst/AppData/Local/Programs/Python/Python36/HackBU2018-Fake-News-Detector/fakenews_training_set.csv"
+TEST_URL = "file:///c:/Users/gppst/AppData/Local/Programs/Python/Python36/HackBU2018-Fake-News-Detector/fakenews_testing_set.csv"
 
-CSV_COLUMN_NAMES = ['FleschReading', 'FleschKincaid',
-                    'ColemanLiau', 'TyposPCT',
-                    'PercentDiffWords', 'GoogleSearch',
-                    'WhoIs', 'Type']
-TYPES = ['Fake', 'Real']
+CSV_COLUMN_NAMES = ['location_value', 'age_value', 'flesch_reading', 'flesch_kincaid',
+                    'coleman_liau', 'typos_to_words',
+                    'percent_difficult_words', 'google_search_similarity',
+                    'fake']
+TYPES = ['Real', 'Fake']
+
 
 def maybe_download():
     train_path = tf.keras.utils.get_file(TRAIN_URL.split('/')[-1], TRAIN_URL)
@@ -17,19 +18,20 @@ def maybe_download():
 
     return train_path, test_path
 
-def load_data(label_name='Types'):
-    """Returns the news dataset as (train_features, train_label), (test_features, test_label)."""
+
+def load_data(label_name='fake'):
     train_path, test_path = maybe_download()
 
-    train = pd.read_json(path_or_buf=train_path, orient='records')
-    #train holds a pandas DataFrame
-    train_features, train_label = train, train.pop(label_name)
+    train = pd.read_csv(train_path, names=CSV_COLUMN_NAMES, header=0)
+    train_feature = train
+    train_label = train.pop(label_name)
 
-    test = pd.read_json(path_or_buf=test_path, orient='records')
-	#test holds a pandas DataFrame
-    test_features, test_label = test, test.pop(label_name)
+    test = pd.read_csv(test_path, names=CSV_COLUMN_NAMES, header=0)
+    test_feature = test
+    test_label = test.pop(label_name)
 
-    return (train_features, train_label), (test_features, test_label)
+    return (train_feature, train_label), (test_feature, test_label)
+
 
 def train_input_fn(features, labels, batch_size):
     """An input function for training"""
@@ -45,7 +47,7 @@ def train_input_fn(features, labels, batch_size):
 
 def eval_input_fn(features, labels, batch_size):
     """An input function for evaluation or prediction"""
-    features=dict(features)
+    features = dict(features)
     if labels is None:
         # No labels, use only features.
         inputs = features
@@ -69,6 +71,7 @@ def eval_input_fn(features, labels, batch_size):
 # `tf.parse_csv` sets the types of the outputs to match the examples given in
 #     the `record_defaults` argument.
 CSV_TYPES = [[0.0], [0.0], [0.0], [0.0], [0]]
+
 
 def _parse_line(line):
     # Decode the line into its fields

@@ -38,7 +38,7 @@ def main(argv):
 
     # Evaluate the model.
     eval_result = classifier.evaluate(
-        input_fn=lambda:news_data_data.eval_input_fn(test_features, test_label,
+        input_fn=lambda:news_data.eval_input_fn(test_features, test_label,
                                                 args.batch_size))
 
     print('\nTest set accuracy: {accuracy:0.3f}\n'.format(**eval_result))
@@ -46,18 +46,18 @@ def main(argv):
     # Generate predictions from the model
     expected = ['Fake', 'Real', 'Fake']
     predict_features = {
-        'FleschReading': [5.1, 5.9, 6.9],
-        'FleschKincaid': [3.3, 3.0, 3.1],
-        'ColemanLiau': [1.7, 4.2, 5.4],
-        'Typo': [0.5, 1.5, 2.1],
-        'DiffWord': [1.7, 4.2, 5.4],
-        'PartsOfSpeech': [0.5, 1.5, 2.1],
-        'GoogleResults': [1.7, 4.2, 5.4],
-        'WhoIs': [0.5, 1.5, 2.1]
+        'location_value': [0, 0, 0],
+        'age_value': [-0.286, -8.018, -0.286],
+        'flesch_reading': [60.04, 44.37, 60.24],
+        'flesch_kincaid': [9.8, 13.7, 9.7],
+        'coleman_liau': [12.82, 13.12, 13.58],
+        'typos_to_words': [0.035849056603773584, 0.0375, 0.02702702702702703],
+        'percent_difficult_words': [0.22452830188679246, 0.3125, 0.22136422136422138],
+        'google_search_similarity': [0.07009995538069061, 0.36474080654133, 0.3750778020186257]
     }
 
     predictions = classifier.predict(
-        input_fn=lambda:iris_data.eval_input_fn(predict_features,
+        input_fn=lambda:news_data.eval_input_fn(predict_features,
                                                 labels=None,
                                                 batch_size=args.batch_size))
 
@@ -67,7 +67,7 @@ def main(argv):
         class_id = pred_dict['class_ids'][0]
         probability = pred_dict['probabilities'][class_id]
 
-        print(template.format(news_data.SPECIES[class_id],
+        print(template.format(news_data.TYPES[class_id],
                               100 * probability, expec))
 
 
