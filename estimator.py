@@ -153,9 +153,3 @@ def get_result(url: str) -> list:
     article_dict = get_article_dict(url)
 
     return network_result(article_dict)
-
-t1 = time.time()
-print(get_result("https://worldtruth.tv/clinton-estate-is-officially-a-crime-scene-as-11-more-steel-barrel-graves-are-uncovered/?utm_source=facebook&utm_medium=social&utm_campaign=SocialWarfare"))
-print(time.time() - t1)
-
-print(get_result("https://www.nytimes.com/2018/02/10/us/politics/tax-cuts-election-message-trump.html"))
