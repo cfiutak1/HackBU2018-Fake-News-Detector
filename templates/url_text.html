@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <title>Url text</title>
     <style type="text/css">
+        .center{
+                text-align: center;
+            }
         #green
         {
             color: green;
@@ -15,6 +18,7 @@
         #yellow
         {
             color: yellow;
+
         }
         #orange
         {
@@ -24,13 +28,28 @@
         {
             color: red;
         }
+        #heading
+        {
+            color: dodgerblue;
+            text-shadow: 1px 1px black;
+            font-size: 18px;
+        }
+        div {
+            width: 300px;
+            padding: 10px;
+            border: 50px dodgerblue;
+            background-color: darkgrey;
+
+            margin: auto;
+            margin-top: 200px;
+        }
     </style>
 </head>
 
-<body>
-    <div class="url_text">
-    <p>
-        Here is the text from your file:
+<body class = "center">
+    <div>
+    <p id = heading>
+        Here is the amount of fake your article is:
     </p>
     {%if percent <= 0.2 %}
         <p id = green> {{percent}} </p>
@@ -43,7 +62,7 @@
     {%else%}
         <p id = red> {{percent}}</p>
     {% endif%}
-        </div>
+    </div>
 </body>
 
 
