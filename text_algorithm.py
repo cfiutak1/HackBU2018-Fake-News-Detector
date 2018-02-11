@@ -1,6 +1,7 @@
 from textstat.textstat import textstat
 import language_check
 import nltk
+import quick_scripts
 
 
 def count_partsofspeech(article_contents: str) -> dict:
@@ -11,18 +12,18 @@ def count_partsofspeech(article_contents: str) -> dict:
     @return pos_dict, which contains the parts of speech breakdown of an article
     """
     pos_dict = {}
-    numwords = 0
     text = nltk.word_tokenize(article_contents)
 
     for word in nltk.pos_tag(text):
-        numwords+=1
         if word[1] in pos_dict:
             pos_dict[word[1]] += 1
 
         else:
             pos_dict[word[1]] = 1
 
-    return pos_dict / numwords
+    for item in pos_dict:
+        pos_dict[item] = pos_dict[item] / textstat.lexicon_count(article_contents)
+    return pos_dict
 
 
 def get_text_features(article_contents: str) -> dict:
