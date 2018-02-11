@@ -82,8 +82,6 @@ def get_whois_features(url: str) -> dict:
 
 #     Assigns a float to the age_value key depending on the relative age of the website
 #     TODO - Refine this value to get best results
-    print(whois_data["creation_date"])
-    print(days_since_creation(whois_data["creation_date"]))
     whois_values_dict["age_value"] = (1000 - days_since_creation(whois_data["creation_date"])) / 1000
 
 #     Assigns an int to the privacy_value key by checking if a privacy guard service was used
