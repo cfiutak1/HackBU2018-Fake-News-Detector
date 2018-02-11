@@ -1,5 +1,6 @@
 import pandas as pd
 import tensorflow as tf
+import json
 
 TRAIN_URL = "file://Users/gppst/AppData/Local/Programs/Python/Python36/HackBU2018-Fake-News-Detector/fakenews_training.json"
 TEST_URL = "file://Users/gppst/AppData/Local/Programs/Python/Python36/HackBU2018-Fake-News-Detector/fakenews_testing.json"
