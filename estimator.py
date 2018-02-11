@@ -46,10 +46,14 @@ def main(argv):
     # Generate predictions from the model
     expected = ['Fake', 'Real', 'Fake']
     predict_features = {
-        'HostLocation': [5.1, 5.9, 6.9],
-        'AgeofSite': [3.3, 3.0, 3.1],
-        'PrivacyGuard': [1.7, 4.2, 5.4],
-        'GoogleHits': [0.5, 1.5, 2.1],
+        'FleschReading': [5.1, 5.9, 6.9],
+        'FleschKincaid': [3.3, 3.0, 3.1],
+        'ColemanLiau': [1.7, 4.2, 5.4],
+        'Typo': [0.5, 1.5, 2.1],
+        'DiffWord': [1.7, 4.2, 5.4],
+        'PartsOfSpeech': [0.5, 1.5, 2.1],
+        'GoogleResults': [1.7, 4.2, 5.4],
+        'WhoIs': [0.5, 1.5, 2.1]
     }
 
     predictions = classifier.predict(

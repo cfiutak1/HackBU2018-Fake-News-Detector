@@ -35,7 +35,6 @@ def days_since_creation(date_str: str) -> int:
     return diff_days.days
 
 
-# TODO - Make this breakproof since some of these keys might not exist
 def get_whois_data(url: str) -> dict:
     """
     Gets the ICANN WHOIS information for a given website URL and returns a dictionary with the useful (for our purposes)
@@ -46,16 +45,32 @@ def get_whois_data(url: str) -> dict:
     """
     whois_dict = whois(url)
     refined_whois_dict = {
-        "city": whois_dict["city"],
-        "state": whois_dict["state"],
-        "country": whois_dict["country"],
-        "creation_date": reformat_date(whois_dict["creation_date"]),
-        "name": whois_dict["name"]
+        "city": "",
+        "state": "",
+        "country": "",
+        "creation_date": "",
+        "name": ""
     }
+
+    if "city" in whois_dict:
+        refined_whois_dict["city"] = whois_dict["city"]
+
+    if "state" in whois_dict:
+        refined_whois_dict["state"] = whois_dict["state"]
+
+    if "country" in whois_dict:
+        refined_whois_dict["country"] = whois_dict["country"],
+
+    if "creation_date" in whois_dict:
+        refined_whois_dict["creation_date"] = reformat_date(whois_dict["creation_date"])
+
+    if "name" in whois_dict:
+        refined_whois_dict["name"] = whois_dict["name"]
 
     return refined_whois_dict
 
 
+# TODO - Revamp to match changes made to the get whois info function
 def get_whois_features(url: str) -> dict:
     """
     Returns a dictionary containing values for different WHOIS factors that our algorithm will use. The location of
@@ -71,22 +86,22 @@ def get_whois_features(url: str) -> dict:
         "age_value": 0,
     }
 
-#     Assigns an int to the location_value key depending on the history of fake news dissemination from a given country
+    # Assigns an int to the location_value key depending on the history of fake news dissemination from a given country
     suspicious_countries = ("MK", "PA")
     suspicious_cities_us = (("SCOTTSDALE", "AZ"),)
-    if whois_data["country"].upper() in suspicious_countries:
+
+    # Sanitize the country name
+    if str(whois_data["country"]).upper() in suspicious_countries:
         whois_values_dict["location_value"] = 1
 
-    elif (whois_data["city"].upper(), whois_data["state"].upper()) in suspicious_cities_us:
+    elif (str(whois_data["city"]).upper(), str(whois_data["state"].upper())) in suspicious_cities_us:
         whois_values_dict["location_value"] = 1
 
-#     Assigns a float to the age_value key depending on the relative age of the website
-#     TODO - Refine this value to get best results
-    print(whois_data["creation_date"])
-    print(days_since_creation(whois_data["creation_date"]))
+    # Assigns a float to the age_value key depending on the relative age of the website
+    # TODO - Refine this value to get best results
     whois_values_dict["age_value"] = (1000 - days_since_creation(whois_data["creation_date"])) / 1000
 
-#     Assigns an int to the privacy_value key by checking if a privacy guard service was used
+    # Assigns an int to the privacy_value key by checking if a privacy guard service was used
     if "PRIVACY" in whois_data["name"].upper():
         whois_values_dict["location_value"] = 0.65
 

@@ -1,10 +1,14 @@
 import pandas as pd
 import tensorflow as tf
+import json
 
-TRAIN_URL = ""
-TEST_URL = ""
+TRAIN_URL = "file://Users/gppst/AppData/Local/Programs/Python/Python36/HackBU2018-Fake-News-Detector/fakenews_training.json"
+TEST_URL = "file://Users/gppst/AppData/Local/Programs/Python/Python36/HackBU2018-Fake-News-Detector/fakenews_testing.json"
 
-CSV_COLUMN_NAMES = ['HostLocation', 'AgeAndPrivacy', 'GoogleHits', 'Typos']
+CSV_COLUMN_NAMES = ['FleschReading', 'FleschKincaid',
+                    'ColemanLiau', 'TyposPCT',
+                    'PercentDiffWords', 'GoogleSearch',
+                    'WhoIs', 'Type']
 TYPES = ['Fake', 'Real']
 
 def maybe_download():
@@ -17,20 +21,15 @@ def load_data(label_name='Types'):
     """Returns the news dataset as (train_features, train_label), (test_features, test_label)."""
     train_path, test_path = maybe_download()
 
-    train = pd.read_csv(filepath_or_buffer=train_path, 
-						names=CSV_COLUMN_NAMES, 
-						header=0)	#ignore first row of CSV
-	#train holds a pandas DataFrame
+    train = pd.read_json(path_or_buf=train_path, orient='records')
+    #train holds a pandas DataFrame
     train_features, train_label = train, train.pop(label_name)
 
-    test = pd.read_csv(filepath_or_buffer=test_path, 
-						names=CSV_COLUMN_NAMES, 
-						header=0)	#ignore first line of CSV
+    test = pd.read_json(path_or_buf=test_path, orient='records')
 	#test holds a pandas DataFrame
     test_features, test_label = test, test.pop(label_name)
 
     return (train_features, train_label), (test_features, test_label)
-
 
 def train_input_fn(features, labels, batch_size):
     """An input function for training"""
