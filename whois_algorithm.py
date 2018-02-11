@@ -34,9 +34,13 @@ def days_since_creation(date_str: str) -> int:
 
     return diff_days.days
 
+
 # TODO - Make this breakproof since some of these keys might not exist
 def get_whois_data(url: str) -> dict:
     """
+    Gets the ICANN WHOIS information for a given website URL and returns a dictionary with the useful (for our purposes)
+    information.
+
     @param url, a string containing the URL for an article to be checked
     @return refined_whois_dict, a dictionary containing information that is relevant to our algorithm
     """

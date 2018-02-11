@@ -1,7 +1,6 @@
 from textstat.textstat import textstat
 import language_check
 import nltk
-import quick_scripts
 
 
 def count_partsofspeech(article_contents: str) -> dict:
