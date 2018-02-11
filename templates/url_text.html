@@ -34,34 +34,51 @@
             text-shadow: 1px 1px black;
             font-size: 18px;
         }
-        div {
+        .lightbox {
             width: 300px;
             padding: 10px;
-            border: 50px dodgerblue;
-            background-color: darkgrey;
+            border-right: 3px solid #000;
+            border-left: 3px solid #000;
+            border-top: 3px solid #000;
+            border-bottom: 3px solid #000;
+
+            background-color: lightgrey;
 
             margin: auto;
             margin-top: 200px;
+        }
+        .darkbox {
+            margin: auto;
+            width: 100px;
+            padding: 5px;
+            background-color: black;
+            border-right: 3px solid darkgrey;
+            border-left: 3px solid darkgrey;
+            border-top: 3px solid darkgrey;
+            border-bottom: 3px solid darkgrey;
+
         }
     </style>
 </head>
 
 <body class = "center">
-    <div>
+    <div class = 'lightbox'>
     <p id = heading>
-        Here is the amount of fake your article is:
-    </p>
-    {%if percent <= 0.2 %}
-        <p id = green> {{percent}} </p>
-    {%elif percent > 0.2 and percent <= 0.5 %}
-        <p id = lightgreen> {{percent}} </p>
-    {%elif percent > 0.5 and percent <= 0.65 %}
-        <p id = yellow> {{percent}}</p>
-    {%elif percent > 0.65 and percent <= 0.8 %}
-        <p id = orange> {{percent}}</p>
-    {%else%}
-        <p id = red> {{percent}}</p>
-    {% endif%}
+        The amount of fake your article is: </p>
+        <div class = 'darkbox'>
+
+        {%if percent <= 0.2 %}
+            <p id = green> {{percent}} </p>
+        {%elif percent > 0.2 and percent <= 0.5 %}
+            <p id = lightgreen> {{percent}} </p>
+        {%elif percent > 0.5 and percent <= 0.65 %}
+            <p id = yellow> {{percent}}</p>
+        {%elif percent > 0.65 and percent <= 0.8 %}
+            <p id = orange> {{percent}}</p>
+        {%else%}
+            <p id = red> {{percent}}</p>
+        {% endif%}
+        </div>
     </div>
 </body>
 

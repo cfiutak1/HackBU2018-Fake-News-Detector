@@ -26,10 +26,22 @@
                 font-size: 16px;
             }
 
+            .box{
+                background-color: lightgrey;
+                margin: auto;
+                margin-top: 150px;
+                padding: 20px;
+                width: 600px;
+                border-right: 3px solid #000;
+                border-left: 3px solid #000;
+                border-top: 3px solid #000;
+                border-bottom: 3px solid #000;
+            }
+
             h2
             {
                 font-size:50px;
-                margin-top:150px;
+                margin-top:30px;
                 text-shadow: 3px 2px black;
                 /*margin-left:200px;*/
 
@@ -44,6 +56,7 @@
         </style>
     </head>
     <body>
+    <div class = "box">
         <h2 class= "center"> Fake News Detector </h2>
 
         <h1 class = "center2">Paste your URL here:</h1>
@@ -51,10 +64,6 @@
             <input id = "url" type="text" name="url"> </input>
             <input id = "submission" type="submit" value="submit url"> </input>
         </form>
-
-    <div class="container">
-        {% block content %}
-        {% endblock %}
     </div>
     </body>
 </html>
