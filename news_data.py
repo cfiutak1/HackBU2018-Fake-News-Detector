@@ -2,8 +2,8 @@ import pandas as pd
 import tensorflow as tf
 import json
 
-TRAIN_URL = "file:///c:/Users/gppst/AppData/Local/Programs/Python/Python36/HackBU2018-Fake-News-Detector/fakenews_training_set.csv"
-TEST_URL = "file:///c:/Users/gppst/AppData/Local/Programs/Python/Python36/HackBU2018-Fake-News-Detector/fakenews_testing_set.csv"
+TRAIN_URL = "file:///c:/Users/Colin/Desktop/HackBU2018/fakenews_training_set.csv"
+TEST_URL = "file:///c:/Users/Colin/Desktop/HackBU2018/fakenews_testing_set.csv"
 
 CSV_COLUMN_NAMES = ['location_value', 'age_value', 'flesch_reading', 'flesch_kincaid',
                     'coleman_liau', 'typos_to_words',

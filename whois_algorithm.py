@@ -94,15 +94,15 @@ def get_whois_features(url: str) -> dict:
     if str(whois_data["country"]).upper() in suspicious_countries:
         whois_values_dict["location_value"] = 1
 
-    elif (str(whois_data["city"]).upper(), str(whois_data["state"].upper())) in suspicious_cities_us:
+    elif (str(whois_data["city"]).upper(), str(whois_data["state"]).upper()) in suspicious_cities_us:
         whois_values_dict["location_value"] = 1
 
     # Assigns a float to the age_value key depending on the relative age of the website
     # TODO - Refine this value to get best results
-    whois_values_dict["age_value"] = (1000 - days_since_creation(whois_data["creation_date"])) / 1000
+    whois_values_dict["age_value"] = whois_data["creation_date"]
 
     # Assigns an int to the privacy_value key by checking if a privacy guard service was used
-    if "PRIVACY" in whois_data["name"].upper():
+    if whois_data["name"] != None and "PRIVACY" in whois_data["name"].upper():
         whois_values_dict["location_value"] = 0.65
 
     return whois_values_dict

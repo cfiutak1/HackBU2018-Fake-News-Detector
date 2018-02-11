@@ -12,7 +12,8 @@ parser.add_argument('--batch_size', default=50, type=int, help='batch size')
 parser.add_argument('--train_steps', default=1000, type=int,
                     help='number of training steps')
 
-RESULTS_URL = "file:///c:/Users/gppst/AppData/Local/Programs/Python/Python36/HackBU2018-Fake-News-Detector/interpret_results.csv"
+PREDICT_FEATURES = {}
+RETURN_VAR = []
 
 def main(argv):
     args = parser.parse_args(argv[1:])
@@ -43,38 +44,51 @@ def main(argv):
         input_fn=lambda:news_data.eval_input_fn(test_features, test_label,
                                                 args.batch_size))
 
-    print(prediction_gen())
+    # print('\nTest set accuracy: {accuracy:0.3f}\n'.format(**eval_result))
 
-def download():
-    results_path = tf.keras.utils.get_file(RESULTS_URL.split('/')[-1], RESULTS_URL)
+    # Generate predictions from the model
+    # expected = ['Fake', 'Real', 'Fake']
+    # predict_features = {
+    #     'location_value': [0],
+    #     'age_value': [-9.437],
+    #     'flesch_reading': [53.21],
+    #     'flesch_kincaid': [10.3],
+    #     'coleman_liau': [14.38],
+    #     'typos_to_words': [0.09748427672955975],
+    #     'percent_difficult_words': [0.24633123689727462],
+    #     'google_search_similarity': [0.04065033090111088]
+    # }
 
-    return results_path
-
-def load_results(label_name='fake'):
-    results_path = download()
-
-    results = pd.read_csv(results_path, names=CSV_COLUMN_NAMES, header=0)
-    results_feature = results
-    results_label = results.pop(label_name)
-
-    return results_feature
-
-def prediction_gen():
-    pred_features = load_results(str='fake')
+    predict_features = PREDICT_FEATURES
 
     predictions = classifier.predict(
-        input_fn=lambda: news_data.eval_input_fn(predict_features,
-                                                 labels=None,
-                                                 batch_size=args.batch_size))
+        input_fn=lambda:news_data.eval_input_fn(predict_features,
+                                                labels=None,
+                                                batch_size=args.batch_size))
 
-    for pred_dict, expec in zip(predictions, expected):
+    list_predictions = list(predictions)
+    # print(list_predictions)
+    # print(list_predictions[0])
+    class_id = list_predictions[0]['class_ids'][0]
+    # print(news_data.TYPES[class_id])
+    # print()
 
-        class_id = pred_dict['class_ids'][0]
-        probability = pred_dict['probabilities'][class_id]
+    RETURN_VAR = [news_data.TYPES[class_id], list_predictions[0]['probabilities'][class_id] * 100]
+    # print(args)
+    # for pred_dict, expec in zip(predictions, expected):
+    #     template = ('\nPrediction is "{}" ({:.1f}%), expected "{}"')
+    #
+    #     class_id = pred_dict['class_ids'][0]
+    #     probability = pred_dict['probabilities'][class_id]
+    #
+    #     print(template.format(news_data.TYPES[class_id],
+    #                           100 * probability, expec))
 
-        return (news_data.TYPES[class_id], 100 * probability)
+    # return (news_data.TYPES[class_id], 100* probability)
 
 
-if __name__ == '__main__':
+def invoke(results_dict: dict) -> list:
+    PREDICT_FEATURES = results_dict
     tf.logging.set_verbosity(tf.logging.INFO)
     tf.app.run(main)
+    return RETURN_VAR
