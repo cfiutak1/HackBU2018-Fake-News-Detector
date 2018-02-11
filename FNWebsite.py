@@ -17,11 +17,11 @@ def hello_world():
 
 def submit():
     if request.method == 'POST':
-        url = str(request.form['url'])
+        url = float(request.form['url'])
         #new_url = url[::-1]
     # --> should be something here that takes data from the other file <--
-    percent = 0.9
-    return render_template('url_text.html', percent= percent)
+    result = url
+    return render_template('url_text.html', percent=result)
 
 if __name__ == "__main__":
     app.run()
