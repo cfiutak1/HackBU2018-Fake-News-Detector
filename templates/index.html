@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title> Fake News </title>
+        <style type="text/css">
+            .center{
+                text-align: center;
+            }
+            #url
+            {
+                color:lightskyblue;
+                /*margin-left:1px;*/
+
+            }
+
+            #submission
+            {
+                /*margin-left:150px;*/
+                font-family:"Arial";
+                font-size: 16px;
+            }
+
+            h2
+            {
+                font-size:50px;
+                margin-top:150px;
+                /*margin-left:200px;*/
+
+                font-family:"Arial";
+                color:dodgerblue;
+            }
+            h1
+            {
+                font-size:16px;
+            }
+
+        </style>
+    </head>
+    <body>
+        <h2 class= "center"> Fake News Detector </h2>
+
+        <h1>Paste your URL here:</h1>
+        <form class= "center" action="submit" method="post">
+            <input id = "url" type="text" name="url"> </input>
+            <input id = "submission" type="submit" value="submit url"> </input>
+        </form>
+
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+    </div>
+    </body>
+</html>
