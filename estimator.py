@@ -47,7 +47,7 @@ def main(argv):
     expected = ['Fake', 'Real', 'Fake']
     predict_features = {
         'HostLocation': [5.1, 5.9, 6.9],
-        'AgeofSite': [3.3, 3.0, 3.1],
+        'AgeOfSite': [3.3, 3.0, 3.1],
         'PrivacyGuard': [1.7, 4.2, 5.4],
         'GoogleHits': [0.5, 1.5, 2.1],
     }
