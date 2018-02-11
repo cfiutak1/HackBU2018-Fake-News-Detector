@@ -7,32 +7,42 @@
         .center{
                 text-align: center;
             }
-        #green
+        #white{
+            color:white;
+            text-align: center;
+        }
+        .green
         {
             color: green;
+            text-align: center;
         }
         #lightgreen
         {
             color: lightgreen;
+            text-align: center;
         }
         #yellow
         {
             color: yellow;
+            text-align: center;
 
         }
         #orange
         {
             color: orange;
+            text-align: center;
         }
-        #red
+        .red
         {
             color: red;
+            text-align: center;
         }
-        #heading
+        .heading
         {
             color: dodgerblue;
             text-shadow: 1px 1px black;
             font-size: 18px;
+            text-align: center;
         }
         .lightbox {
             width: 300px;
@@ -61,24 +71,35 @@
     </style>
 </head>
 
-<body class = "center">
+<p class = "center">
     <div class = 'lightbox'>
-    <p id = heading>
-        Your article is:  </p>
-        <div class = 'darkbox'>
-
+    <p class = heading>
+        We are
         {%if percent <= 0.2 %}
-            <p id = green> {{percent}} </p>
+            <span class = green> {{percent_str}}% </span>
         {%elif percent > 0.2 and percent <= 0.5 %}
-            <p id = lightgreen> {{percent}} </p>
+            <span id = lightgreen> {{percent_str}}% </span>
         {%elif percent > 0.5 and percent <= 0.65 %}
-            <p id = yellow> {{percent}}</p>
+            <span id = yellow> {{percent_str}}%</span>
         {%elif percent > 0.65 and percent <= 0.8 %}
-            <p id = orange> {{percent}}</p>
+            <span id = orange> {{percent_str}}%</span>
         {%else%}
-            <p id = red> {{percent}}</p>
-        {% endif%}
+            <span class = red> {{percent_str}}% </span>
+        {% endif%}</p>
+<p class = heading> sure that your article is:  </p>
+        <div class = 'darkbox'>
+        {%if real_fake == 'Fake' %}
+            <p class = red>
+                {{real_fake}} News
+            </p>
+        {%else%}
+            <p class = green>
+                {{real_fake}} News
+            </p>
+        {%endif%}
+
         </div>
+
     </div>
 </body>
 

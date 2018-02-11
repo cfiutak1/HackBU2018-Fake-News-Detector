@@ -19,9 +19,15 @@ def submit():
     if request.method == 'POST':
         url = request.form['url']
         #new_url = url[::-1]
-    # --> should be something here that takes data from the other file <--
+    # -->should be something here that takes data from the other file <--
+
     result = estimator.get_result(url)
-    return render_template('url_text.html', percent=result)
+    result_list = [result[0], result[1]]
+    real_fake = result_list[0]
+    percent = result_list[1]
+    percent_str = str(percent)
+    percent_str = percent_str[:4]
+    return render_template('url_text.html', percent=percent, percent_str = percent_str, real_fake= real_fake)
 
 if __name__ == "__main__":
     app.run()

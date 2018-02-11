@@ -153,3 +153,5 @@ def get_result(url: str) -> list:
     article_dict = get_article_dict(url)
 
     return network_result(article_dict)
+
+# print(get_result("https://www.bupipedream.com/news/91132/university-cancels-classes/"))
