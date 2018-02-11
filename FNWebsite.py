@@ -18,9 +18,10 @@ def hello_world():
 def submit():
     if request.method == 'POST':
         url = str(request.form['url'])
-        new_url = url[::-1]
-        print(new_url)
-    return render_template('url_text.html', new_url= new_url)
+        #new_url = url[::-1]
+    # --> should be something here that takes data from the other file <--
+    percent = 0.9
+    return render_template('url_text.html', percent= percent)
 
 if __name__ == "__main__":
     app.run()

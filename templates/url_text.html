@@ -3,6 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <title>Url text</title>
+    <style type="text/css">
+        #green
+        {
+            color: green;
+        }
+        #lightgreen
+        {
+            color: lightgreen;
+        }
+        #yellow
+        {
+            color: yellow;
+        }
+        #orange
+        {
+            color: orange;
+        }
+        #red
+        {
+            color: red;
+        }
+    </style>
 </head>
 
 <body>
@@ -10,7 +32,17 @@
     <p>
         Here is the text from your file:
     </p>
-    <p> {{new_url}} </p>
+    {%if percent <= 0.2 %}
+        <p id = green> {{percent}} </p>
+    {%elif percent > 0.2 and percent <= 0.5 %}
+        <p id = lightgreen> {{percent}} </p>
+    {%elif percent > 0.5 and percent <= 0.65 %}
+        <p id = yellow> {{percent}}</p>
+    {%elif percent > 0.65 and percent <= 0.8 %}
+        <p id = orange> {{percent}}</p>
+    {%else%}
+        <p id = red> {{percent}}</p>
+    {% endif%}
         </div>
 </body>
 
