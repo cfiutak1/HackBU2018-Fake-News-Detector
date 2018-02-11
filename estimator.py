@@ -9,6 +9,7 @@ import google_search
 import whois_algorithm
 import text_algorithm
 import page_scraper
+import time
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--batch_size', default=50, type=int, help='batch size')
@@ -150,8 +151,11 @@ def network_result(article_dict: dict):
 def get_result(url: str) -> list:
     tf.logging.set_verbosity(tf.logging.INFO)
     article_dict = get_article_dict(url)
-    # article_dict = quick_scripts.reformat_article_dict(article_dict)
-    print(article_dict)
-    # tf.app.run(main)
 
     return network_result(article_dict)
+
+t1 = time.time()
+print(get_result("https://worldtruth.tv/clinton-estate-is-officially-a-crime-scene-as-11-more-steel-barrel-graves-are-uncovered/?utm_source=facebook&utm_medium=social&utm_campaign=SocialWarfare"))
+print(time.time() - t1)
+
+print(get_result("https://www.nytimes.com/2018/02/10/us/politics/tax-cuts-election-message-trump.html"))

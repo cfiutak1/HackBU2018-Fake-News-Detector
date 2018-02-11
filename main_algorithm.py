@@ -6,7 +6,7 @@ import estimator
 import json
 
 
-def get_results(url: str) -> list:
+def get_article_dict(url: str) -> dict:
     """
     Runs each algorithm on the input article, and returns all the results in a dictionary
 
@@ -29,9 +29,9 @@ def get_results(url: str) -> list:
         "google_search_similarity": [google_var],
     }
 
-    print(estimator.invoke(results_dict))
+    return results_dict
 
-get_results("https://worldtruth.tv/clinton-estate-is-officially-a-crime-scene-as-11-more-steel-barrel-graves-are-uncovered/?utm_source=facebook&utm_medium=social&utm_campaign=SocialWarfare")
+# get_results("https://worldtruth.tv/clinton-estate-is-officially-a-crime-scene-as-11-more-steel-barrel-graves-are-uncovered/?utm_source=facebook&utm_medium=social&utm_campaign=SocialWarfare")
 
 """
 print(get_results("https://www.infowars.com/poll-americans-overwhelmingly-believe-obama-improperly-surveilled-trump-campaign/"))
