@@ -36,7 +36,7 @@ def compare_strings(string1: str, string2: str) -> float:
     return SequenceMatcher(None, string1, string2).ratio()
 
 
-def get_results(article_contents: str) -> float:
+def get_google_search_feature(article_contents: str) -> float:
     """
     Takes a quote from an article, uses a Google Search API to get the first page of similar results, compares every
      result to the quote, and returns the average similarity of every result. Higher = more suspicious.
@@ -45,6 +45,7 @@ def get_results(article_contents: str) -> float:
     @return a float average of similarity between the article quote and the descriptions of the first page google search
      results.
     """
+    article_contents = limit_32_words(article_contents)
     search_results = google.search(article_contents, 1)
     similarity_accum = 0
 

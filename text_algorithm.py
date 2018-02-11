@@ -25,7 +25,7 @@ def count_partsofspeech(article_contents: str) -> dict:
     return pos_dict / numwords
 
 
-def get_text_characteristics(article_contents: str) -> dict:
+def get_text_features(article_contents: str) -> dict:
     """
     Takes an article's contents and analyzes its complexity using numerous reading scores and methods. Also calculates
     other factors such as the number of typos.

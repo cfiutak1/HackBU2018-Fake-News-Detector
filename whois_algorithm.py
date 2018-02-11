@@ -9,7 +9,17 @@ def reformat_date(date_str: str) -> datetime.datetime:
     @param date_str, a formatted string containing a date
     @return a datetime.datetime object containing the input date
     """
-    return datetime.datetime.strptime(date_str, '%Y-%m-%d %H:%M:%S')
+    if type(date_str) == type("str"):
+        return datetime.datetime.strptime(date_str, '%Y-%m-%d %H:%M:%S')
+
+    elif type(date_str) == type([]):
+        return date_str[0]
+
+    elif type(date_str) == type(datetime.datetime.now()):
+        return date_str
+
+    else:
+        raise Exception("Incorrect date value passed")
 
 
 def days_since_creation(date_str: str) -> int:
@@ -68,6 +78,8 @@ def get_whois_features(url: str) -> dict:
 
 #     Assigns a float to the age_value key depending on the relative age of the website
 #     TODO - Refine this value to get best results
+    print(whois_data["creation_date"])
+    print(days_since_creation(whois_data["creation_date"]))
     whois_values_dict["age_value"] = (1000 - days_since_creation(whois_data["creation_date"])) / 1000
 
 #     Assigns an int to the privacy_value key by checking if a privacy guard service was used

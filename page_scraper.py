@@ -3,7 +3,7 @@ from readability import Document
 from bs4 import BeautifulSoup
 
 
-def get_article_content(url: str) -> tuple:
+def get_article_content(url: str) -> str:
     """
     Takes a link to an article, gets the reader view HTML, and then strips this HTML string of any remaining HTML tags
 
@@ -12,8 +12,7 @@ def get_article_content(url: str) -> tuple:
     """
     response = requests.get(url)
     doc = Document(response.text)
-    title = doc.title()
     soup = BeautifulSoup(doc.summary(), "lxml")
     text = soup.get_text()
 
-    return title, text
+    return text
