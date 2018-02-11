@@ -86,22 +86,22 @@ def get_whois_features(url: str) -> dict:
         "age_value": 0,
     }
 
-#     Assigns an int to the location_value key depending on the history of fake news dissemination from a given country
+    # Assigns an int to the location_value key depending on the history of fake news dissemination from a given country
     suspicious_countries = ("MK", "PA")
     suspicious_cities_us = (("SCOTTSDALE", "AZ"),)
 
-#   Sanitize the country name
+    # Sanitize the country name
     if str(whois_data["country"]).upper() in suspicious_countries:
         whois_values_dict["location_value"] = 1
 
     elif (str(whois_data["city"]).upper(), str(whois_data["state"].upper())) in suspicious_cities_us:
         whois_values_dict["location_value"] = 1
 
-#     Assigns a float to the age_value key depending on the relative age of the website
-#     TODO - Refine this value to get best results
+    # Assigns a float to the age_value key depending on the relative age of the website
+    # TODO - Refine this value to get best results
     whois_values_dict["age_value"] = (1000 - days_since_creation(whois_data["creation_date"])) / 1000
 
-#     Assigns an int to the privacy_value key by checking if a privacy guard service was used
+    # Assigns an int to the privacy_value key by checking if a privacy guard service was used
     if "PRIVACY" in whois_data["name"].upper():
         whois_values_dict["location_value"] = 0.65
 
